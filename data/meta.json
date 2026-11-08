@@ -1,0 +1,1048 @@
+{
+ "as_of": "2026-11-07",
+ "horizon_days": 90,
+ "events_start": "2024-11-07",
+ "backtest_cutoff": "2026-07-01",
+ "counts": {
+  "buildings": 241588,
+  "tenants": 22406,
+  "reports": 649925,
+  "infra_failures": 50872,
+  "by_class": {
+   "home": 213378,
+   "commercial": 17071,
+   "multifamily": 10843,
+   "industrial": 296
+  },
+  "placed_by": {
+   "311": 135568,
+   "street": 106020
+  }
+ },
+ "model": {
+  "train_cutoffs": [
+   "2024-01-01",
+   "2024-07-01",
+   "2025-01-01",
+   "2025-07-01",
+   "2026-01-01",
+   "2026-04-01"
+  ],
+  "test_cutoff": "2026-07-01",
+  "horizon_days": 90,
+  "train_rows": 1449528,
+  "test_rows": 241588,
+  "test_positives": 15451,
+  "base": {
+   "auc": 0.7273,
+   "avg_precision": 0.2471,
+   "watch_list": 2000,
+   "watch_precision": 0.6145,
+   "watch_lift": 9.61,
+   "cases_caught": 1229,
+   "base_rate": 0.064
+  },
+  "network": {
+   "auc": 0.7349,
+   "avg_precision": 0.249,
+   "watch_list": 2000,
+   "watch_precision": 0.614,
+   "watch_lift": 9.6,
+   "cases_caught": 1228,
+   "base_rate": 0.064
+  },
+  "network_only_first_time_cases": 0,
+  "by_class": {
+   "home": {
+    "base": {
+     "auc": 0.6959,
+     "avg_precision": 0.1647,
+     "watch_list": 1766,
+     "watch_precision": 0.4037,
+     "watch_lift": 7.29,
+     "cases_caught": 713,
+     "base_rate": 0.0554
+    },
+    "network": {
+     "auc": 0.7046,
+     "avg_precision": 0.1652,
+     "watch_list": 1766,
+     "watch_precision": 0.3941,
+     "watch_lift": 7.11,
+     "cases_caught": 696,
+     "base_rate": 0.0554
+    }
+   },
+   "multifamily": {
+    "base": {
+     "auc": 0.802,
+     "avg_precision": 0.5537,
+     "watch_list": 89,
+     "watch_precision": 0.9888,
+     "watch_lift": 7.16,
+     "cases_caught": 88,
+     "base_rate": 0.1382
+    },
+    "network": {
+     "auc": 0.8081,
+     "avg_precision": 0.556,
+     "watch_list": 89,
+     "watch_precision": 0.9775,
+     "watch_lift": 7.08,
+     "cases_caught": 87,
+     "base_rate": 0.1382
+    }
+   },
+   "commercial": {
+    "base": {
+     "auc": 0.7957,
+     "avg_precision": 0.4021,
+     "watch_list": 141,
+     "watch_precision": 0.766,
+     "watch_lift": 6.23,
+     "cases_caught": 108,
+     "base_rate": 0.1229
+    },
+    "network": {
+     "auc": 0.8001,
+     "avg_precision": 0.4091,
+     "watch_list": 141,
+     "watch_precision": 0.7943,
+     "watch_lift": 6.46,
+     "cases_caught": 112,
+     "base_rate": 0.1229
+    }
+   },
+   "industrial": {
+    "base": {
+     "auc": 0.7671,
+     "avg_precision": 0.367,
+     "watch_list": 50,
+     "watch_precision": 0.34,
+     "watch_lift": 3.05,
+     "cases_caught": 17,
+     "base_rate": 0.1115
+    },
+    "network": {
+     "auc": 0.7739,
+     "avg_precision": 0.3747,
+     "watch_list": 50,
+     "watch_precision": 0.28,
+     "watch_lift": 2.51,
+     "cases_caught": 14,
+     "base_rate": 0.1115
+    }
+   }
+  }
+ },
+ "edges": {
+  "block": {
+   "edge": "A report within 50 m in the last 30 days",
+   "exposed_buildings": 76123,
+   "rate_exposed": 0.0434,
+   "rate_matched": 0.0345,
+   "ratio": 1.26,
+   "per_cutoff": {
+    "2025-07-01": 1.29,
+    "2026-01-01": 1.23,
+    "2026-04-01": 1.31,
+    "2026-07-01": 1.17
+   }
+  },
+  "owner": {
+   "edge": "The same owner had a report at another building in the last year",
+   "exposed_buildings": 16411,
+   "rate_exposed": 0.0485,
+   "rate_matched": 0.0404,
+   "ratio": 1.2,
+   "per_cutoff": {
+    "2025-07-01": 1.36,
+    "2026-01-01": 1.32,
+    "2026-04-01": 1.19,
+    "2026-07-01": 0.89
+   }
+  },
+  "infrastructure": {
+   "edge": "A water, sewer, street or signal failure within 250 m in the last 180 days",
+   "exposed_buildings": 390569,
+   "rate_exposed": 0.0333,
+   "rate_matched": 0.0336,
+   "ratio": 0.99,
+   "per_cutoff": {
+    "2025-07-01": 0.89,
+    "2026-01-01": 1.03,
+    "2026-04-01": 1.07,
+    "2026-07-01": 1.05
+   }
+  }
+ },
+ "assumptions": {
+  "spillover_pct_per_case": {
+   "value": 0.009,
+   "source": "Immergluck & Smith (2006), Housing Policy Debate 17(1): each foreclosure within 1/8 mile (about 200 m) lowers nearby single-family values about 0.9%. Applied only to residential neighbors (homes and multifamily), for any new distress case."
+  },
+  "spillover_radius_m": {
+   "value": 200,
+   "source": "1/8 mile, matching the study above."
+  },
+  "rent_psf_year": {
+   "value": {
+    "office": 35.09,
+    "retail": 21.62,
+    "industrial": 9.76
+   },
+   "source": "Q3 2026 Dallas/Fort Worth average asking rents: office $35.09/sf full service (CBRE DFW Office Figures Q3 2026), retail $21.62/sf (Partners DFW Retail Q3 2026), industrial $9.76/sf net (Cushman & Wakefield DFW Industrial MarketBeat Q3 2026). The DCAD building type picks the rate. Churches, schools, government, parking and hotels get no rent."
+  },
+  "rent_unit_month": {
+   "value": 1461.0,
+   "source": "Q3 2026 DFW average effective apartment rent, $1,461 per unit (Cushman & Wakefield DFW Multifamily MarketBeat Q3 2026)."
+  },
+  "days_open": {
+   "value": {
+    "code": 6.2,
+    "nuisance": 8.5,
+    "rental": 23.4,
+    "tenant": 13.9,
+    "vacancy": 1.1,
+    "all": 6.7
+   },
+   "source": "Measured: median days from report to close for each kind of Dallas 311 property report since 2022 (filled in by build.py). Rent is exposed while a case is open."
+  },
+  "repair_psf": {
+   "value": {
+    "good": 8.0,
+    "average": 18.0,
+    "fair": 32.0,
+    "poor": 55.0
+   },
+   "source": "Placeholder rehab tiers by DCAD condition (WHOLZR uses the same tiers)."
+  },
+  "arv_over_dcad": {
+   "value": 1.1,
+   "source": "DCAD market value lags sales; WHOLZR placeholder."
+  },
+  "buyer_pct_of_arv": {
+   "value": 0.7,
+   "source": "Standard cash-buyer rule (70% of ARV minus repairs)."
+  },
+  "min_assignment_fee": {
+   "value": 10000,
+   "source": "WHOLZR policy minimum fee."
+  },
+  "outreach_cost": {
+   "value": 4.0,
+   "source": "One mailed letter plus skip trace."
+  },
+  "inspection_cost": {
+   "value": 450.0,
+   "source": "Placeholder building inspection."
+  }
+ },
+ "audit": {
+  "cutoff": "2026-07-01",
+  "lead_time": {
+   "capacity_per_day": 50,
+   "visits": 4500,
+   "cases": 15451,
+   "rankings": {
+    "network": {
+     "cases_reached_early": 1018,
+     "share_of_cases": 0.0659,
+     "median_days_ahead": 18.5,
+     "mean_days_ahead": 23.5
+    },
+    "base": {
+     "cases_reached_early": 1022,
+     "share_of_cases": 0.0661,
+     "median_days_ahead": 19.4,
+     "mean_days_ahead": 23.7
+    },
+    "district_fair": {
+     "cases_reached_early": 1004,
+     "share_of_cases": 0.065,
+     "median_days_ahead": 18.7,
+     "mean_days_ahead": 23.7
+    },
+    "last_year_count": {
+     "cases_reached_early": 938,
+     "share_of_cases": 0.0607,
+     "median_days_ahead": 19.3,
+     "mean_days_ahead": 24.3
+    }
+   }
+  },
+  "fairness": {
+   "watch_list": 2000,
+   "city_recall": 0.0795,
+   "city_precision": 0.614,
+   "districts": [
+    {
+     "district": 1,
+     "buildings": 19622,
+     "cases": 1525,
+     "flagged": 120,
+     "case_share": 0.0987,
+     "flag_share": 0.06,
+     "precision": 0.6083,
+     "recall": 0.0479,
+     "recall_ratio": 0.6,
+     "fdr_ratio": 1.01,
+     "under_served": true,
+     "over_flagged": false
+    },
+    {
+     "district": 2,
+     "buildings": 15373,
+     "cases": 1467,
+     "flagged": 267,
+     "case_share": 0.0949,
+     "flag_share": 0.1335,
+     "precision": 0.6404,
+     "recall": 0.1166,
+     "recall_ratio": 1.47,
+     "fdr_ratio": 0.93,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 3,
+     "buildings": 19380,
+     "cases": 1102,
+     "flagged": 91,
+     "case_share": 0.0713,
+     "flag_share": 0.0455,
+     "precision": 0.6703,
+     "recall": 0.0554,
+     "recall_ratio": 0.7,
+     "fdr_ratio": 0.85,
+     "under_served": true,
+     "over_flagged": false
+    },
+    {
+     "district": 4,
+     "buildings": 23366,
+     "cases": 1737,
+     "flagged": 195,
+     "case_share": 0.1124,
+     "flag_share": 0.0975,
+     "precision": 0.6205,
+     "recall": 0.0697,
+     "recall_ratio": 0.88,
+     "fdr_ratio": 0.98,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 5,
+     "buildings": 20829,
+     "cases": 808,
+     "flagged": 67,
+     "case_share": 0.0523,
+     "flag_share": 0.0335,
+     "precision": 0.597,
+     "recall": 0.0495,
+     "recall_ratio": 0.62,
+     "fdr_ratio": 1.04,
+     "under_served": true,
+     "over_flagged": false
+    },
+    {
+     "district": 6,
+     "buildings": 16961,
+     "cases": 1181,
+     "flagged": 145,
+     "case_share": 0.0764,
+     "flag_share": 0.0725,
+     "precision": 0.669,
+     "recall": 0.0821,
+     "recall_ratio": 1.03,
+     "fdr_ratio": 0.86,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 7,
+     "buildings": 19745,
+     "cases": 1274,
+     "flagged": 170,
+     "case_share": 0.0825,
+     "flag_share": 0.085,
+     "precision": 0.5529,
+     "recall": 0.0738,
+     "recall_ratio": 0.93,
+     "fdr_ratio": 1.16,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 8,
+     "buildings": 18449,
+     "cases": 1259,
+     "flagged": 83,
+     "case_share": 0.0815,
+     "flag_share": 0.0415,
+     "precision": 0.6867,
+     "recall": 0.0453,
+     "recall_ratio": 0.57,
+     "fdr_ratio": 0.81,
+     "under_served": true,
+     "over_flagged": false
+    },
+    {
+     "district": 9,
+     "buildings": 21638,
+     "cases": 1175,
+     "flagged": 140,
+     "case_share": 0.076,
+     "flag_share": 0.07,
+     "precision": 0.6214,
+     "recall": 0.074,
+     "recall_ratio": 0.93,
+     "fdr_ratio": 0.98,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 10,
+     "buildings": 14502,
+     "cases": 774,
+     "flagged": 208,
+     "case_share": 0.0501,
+     "flag_share": 0.104,
+     "precision": 0.5673,
+     "recall": 0.1525,
+     "recall_ratio": 1.92,
+     "fdr_ratio": 1.12,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 11,
+     "buildings": 11760,
+     "cases": 771,
+     "flagged": 159,
+     "case_share": 0.0499,
+     "flag_share": 0.0795,
+     "precision": 0.6478,
+     "recall": 0.1336,
+     "recall_ratio": 1.68,
+     "fdr_ratio": 0.91,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 12,
+     "buildings": 4484,
+     "cases": 120,
+     "flagged": 14,
+     "case_share": 0.0078,
+     "flag_share": 0.007,
+     "precision": 0.5714,
+     "recall": 0.0667,
+     "recall_ratio": 0.84,
+     "fdr_ratio": 1.11,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 13,
+     "buildings": 21545,
+     "cases": 879,
+     "flagged": 97,
+     "case_share": 0.0569,
+     "flag_share": 0.0485,
+     "precision": 0.567,
+     "recall": 0.0626,
+     "recall_ratio": 0.79,
+     "fdr_ratio": 1.12,
+     "under_served": true,
+     "over_flagged": false
+    },
+    {
+     "district": 14,
+     "buildings": 13934,
+     "cases": 1379,
+     "flagged": 244,
+     "case_share": 0.0892,
+     "flag_share": 0.122,
+     "precision": 0.5861,
+     "recall": 0.1037,
+     "recall_ratio": 1.3,
+     "fdr_ratio": 1.07,
+     "under_served": false,
+     "over_flagged": false
+    }
+   ]
+  },
+  "fairness_after_rerank": {
+   "watch_list": 2000,
+   "city_recall": 0.0768,
+   "city_precision": 0.593,
+   "districts": [
+    {
+     "district": 1,
+     "buildings": 19622,
+     "cases": 1525,
+     "flagged": 182,
+     "case_share": 0.0987,
+     "flag_share": 0.091,
+     "precision": 0.5275,
+     "recall": 0.063,
+     "recall_ratio": 0.82,
+     "fdr_ratio": 1.16,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 2,
+     "buildings": 15373,
+     "cases": 1467,
+     "flagged": 176,
+     "case_share": 0.0949,
+     "flag_share": 0.088,
+     "precision": 0.6761,
+     "recall": 0.0811,
+     "recall_ratio": 1.06,
+     "fdr_ratio": 0.8,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 3,
+     "buildings": 19380,
+     "cases": 1102,
+     "flagged": 135,
+     "case_share": 0.0713,
+     "flag_share": 0.0675,
+     "precision": 0.6,
+     "recall": 0.0735,
+     "recall_ratio": 0.96,
+     "fdr_ratio": 0.98,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 4,
+     "buildings": 23366,
+     "cases": 1737,
+     "flagged": 246,
+     "case_share": 0.1124,
+     "flag_share": 0.123,
+     "precision": 0.5732,
+     "recall": 0.0812,
+     "recall_ratio": 1.06,
+     "fdr_ratio": 1.05,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 5,
+     "buildings": 20829,
+     "cases": 808,
+     "flagged": 146,
+     "case_share": 0.0523,
+     "flag_share": 0.073,
+     "precision": 0.5137,
+     "recall": 0.0928,
+     "recall_ratio": 1.21,
+     "fdr_ratio": 1.19,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 6,
+     "buildings": 16961,
+     "cases": 1181,
+     "flagged": 150,
+     "case_share": 0.0764,
+     "flag_share": 0.075,
+     "precision": 0.6533,
+     "recall": 0.083,
+     "recall_ratio": 1.08,
+     "fdr_ratio": 0.85,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 7,
+     "buildings": 19745,
+     "cases": 1274,
+     "flagged": 183,
+     "case_share": 0.0825,
+     "flag_share": 0.0915,
+     "precision": 0.5301,
+     "recall": 0.0761,
+     "recall_ratio": 0.99,
+     "fdr_ratio": 1.15,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 8,
+     "buildings": 18449,
+     "cases": 1259,
+     "flagged": 158,
+     "case_share": 0.0815,
+     "flag_share": 0.079,
+     "precision": 0.519,
+     "recall": 0.0651,
+     "recall_ratio": 0.85,
+     "fdr_ratio": 1.18,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 9,
+     "buildings": 21638,
+     "cases": 1175,
+     "flagged": 164,
+     "case_share": 0.076,
+     "flag_share": 0.082,
+     "precision": 0.5854,
+     "recall": 0.0817,
+     "recall_ratio": 1.06,
+     "fdr_ratio": 1.02,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 10,
+     "buildings": 14502,
+     "cases": 774,
+     "flagged": 99,
+     "case_share": 0.0501,
+     "flag_share": 0.0495,
+     "precision": 0.7879,
+     "recall": 0.1008,
+     "recall_ratio": 1.31,
+     "fdr_ratio": 0.52,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 11,
+     "buildings": 11760,
+     "cases": 771,
+     "flagged": 76,
+     "case_share": 0.0499,
+     "flag_share": 0.038,
+     "precision": 0.7632,
+     "recall": 0.0752,
+     "recall_ratio": 0.98,
+     "fdr_ratio": 0.58,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 12,
+     "buildings": 4484,
+     "cases": 120,
+     "flagged": 17,
+     "case_share": 0.0078,
+     "flag_share": 0.0085,
+     "precision": 0.5294,
+     "recall": 0.075,
+     "recall_ratio": 0.98,
+     "fdr_ratio": 1.16,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 13,
+     "buildings": 21545,
+     "cases": 879,
+     "flagged": 115,
+     "case_share": 0.0569,
+     "flag_share": 0.0575,
+     "precision": 0.5217,
+     "recall": 0.0683,
+     "recall_ratio": 0.89,
+     "fdr_ratio": 1.18,
+     "under_served": false,
+     "over_flagged": false
+    },
+    {
+     "district": 14,
+     "buildings": 13934,
+     "cases": 1379,
+     "flagged": 153,
+     "case_share": 0.0892,
+     "flag_share": 0.0765,
+     "precision": 0.6275,
+     "recall": 0.0696,
+     "recall_ratio": 0.91,
+     "fdr_ratio": 0.92,
+     "under_served": false,
+     "over_flagged": false
+    }
+   ]
+  }
+ },
+ "classes": [
+  "home",
+  "multifamily",
+  "commercial",
+  "industrial"
+ ],
+ "kinds": [
+  "code",
+  "rental",
+  "tenant",
+  "construction",
+  "vacancy",
+  "nuisance",
+  "infra"
+ ],
+ "buildings_layout": [
+  {
+   "name": "lon",
+   "dtype": "float32",
+   "offset": 0,
+   "length": 241588
+  },
+  {
+   "name": "lat",
+   "dtype": "float32",
+   "offset": 966352,
+   "length": 241588
+  },
+  {
+   "name": "value",
+   "dtype": "float32",
+   "offset": 1932704,
+   "length": 241588
+  },
+  {
+   "name": "risk",
+   "dtype": "uint8",
+   "offset": 2899056,
+   "length": 241588
+  },
+  {
+   "name": "lift",
+   "dtype": "uint8",
+   "offset": 3140644,
+   "length": 241588
+  },
+  {
+   "name": "risk_backtest",
+   "dtype": "uint8",
+   "offset": 3382232,
+   "length": 241588
+  },
+  {
+   "name": "hit_backtest",
+   "dtype": "uint8",
+   "offset": 3623820,
+   "length": 241588
+  },
+  {
+   "name": "class",
+   "dtype": "uint8",
+   "offset": 3865408,
+   "length": 241588
+  },
+  {
+   "name": "reports_365",
+   "dtype": "uint8",
+   "offset": 4106996,
+   "length": 241588
+  },
+  {
+   "name": "mu",
+   "dtype": "float32",
+   "offset": 4348584,
+   "length": 241588
+  },
+  {
+   "name": "district",
+   "dtype": "uint8",
+   "offset": 5314936,
+   "length": 241588
+  },
+  {
+   "name": "risk_lo",
+   "dtype": "uint8",
+   "offset": 5556524,
+   "length": 241588
+  },
+  {
+   "name": "risk_hi",
+   "dtype": "uint8",
+   "offset": 5798112,
+   "length": 241588
+  },
+  {
+   "name": "certified",
+   "dtype": "uint8",
+   "offset": 6039700,
+   "length": 241588
+  },
+  {
+   "name": "push_nb",
+   "dtype": "uint16",
+   "offset": 6281288,
+   "length": 241588
+  },
+  {
+   "name": "push_share",
+   "dtype": "uint8",
+   "offset": 6764464,
+   "length": 241588
+  },
+  {
+   "name": "spare",
+   "dtype": "uint16",
+   "offset": 7006052,
+   "length": 241588
+  },
+  {
+   "name": "street",
+   "dtype": "uint16",
+   "offset": 7489228,
+   "length": 241588
+  },
+  {
+   "name": "block",
+   "dtype": "uint16",
+   "offset": 7972404,
+   "length": 241588
+  },
+  {
+   "name": "owner",
+   "dtype": "uint16",
+   "offset": 8455580,
+   "length": 241588
+  }
+ ],
+ "events_layout": [
+  {
+   "name": "lon",
+   "dtype": "float32",
+   "offset": 0,
+   "length": 317417
+  },
+  {
+   "name": "lat",
+   "dtype": "float32",
+   "offset": 1269668,
+   "length": 317417
+  },
+  {
+   "name": "day",
+   "dtype": "uint16",
+   "offset": 2539336,
+   "length": 317417
+  },
+  {
+   "name": "kind",
+   "dtype": "uint8",
+   "offset": 3174172,
+   "length": 317417
+  },
+  {
+   "name": "b",
+   "dtype": "int32",
+   "offset": 3491592,
+   "length": 317417
+  },
+  {
+   "name": "new_case",
+   "dtype": "uint8",
+   "offset": 4761260,
+   "length": 317417
+  }
+ ],
+ "risk_scale": "uint8 / 255 = probability of a new report in 90 days",
+ "lift_scale": "uint8 / 255 / 4 = probability points the network adds over the base model",
+ "sources": {
+  "dcad": "Dallas Central Appraisal District 2026 certified export, data as of 2026-09-15",
+  "dallas_311": "Dallas Open Data 311 Service Requests (d7e7-envw), pulled 2026-11-07"
+ },
+ "buyers": [
+  {
+   "name": "SEGO ECHELON LLC",
+   "buys_2y": 44,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "MMD TEXAS INVESTMENTS LLC",
+   "buys_2y": 25,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "PPRE PROPERTIES LLC",
+   "buys_2y": 24,
+   "classes": [
+    "commercial",
+    "home"
+   ]
+  },
+  {
+   "name": "SFR OWNER 2 LLC",
+   "buys_2y": 22,
+   "classes": [
+    "home",
+    "multifamily"
+   ]
+  },
+  {
+   "name": "WH1 LLC",
+   "buys_2y": 21,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "FKH SFR Q LP",
+   "buys_2y": 17,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "PR BORROWER 26 LLC",
+   "buys_2y": 16,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "707 TOWNHOMES LLC",
+   "buys_2y": 16,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "BPHB ASSETCO LLC",
+   "buys_2y": 15,
+   "classes": [
+    "home",
+    "multifamily"
+   ]
+  },
+  {
+   "name": "OLERIO HOMES LLC",
+   "buys_2y": 15,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "PR BORROWER 27 LLC",
+   "buys_2y": 15,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "FF I BORROWER II LLC",
+   "buys_2y": 14,
+   "classes": [
+    "home",
+    "multifamily"
+   ]
+  },
+  {
+   "name": "CS85 PROPERTIES LLC",
+   "buys_2y": 14,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "YUEL REAL ESTATE INVESTMENT LLC",
+   "buys_2y": 11,
+   "classes": [
+    "commercial",
+    "home",
+    "multifamily"
+   ]
+  },
+  {
+   "name": "EID INVESTMENTS LLC",
+   "buys_2y": 11,
+   "classes": [
+    "commercial"
+   ]
+  },
+  {
+   "name": "FYR SFR BORROWER LLC",
+   "buys_2y": 11,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "JESUDA CONSTRUCTION LLC",
+   "buys_2y": 10,
+   "classes": [
+    "home",
+    "multifamily"
+   ]
+  },
+  {
+   "name": "RH PARTNERS OWNERCO 2 LLC",
+   "buys_2y": 10,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "CS85 PROPERTIES LLC",
+   "buys_2y": 10,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "RM3 SFR A LLC",
+   "buys_2y": 10,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "QSR 50 LLC",
+   "buys_2y": 9,
+   "classes": [
+    "commercial"
+   ]
+  },
+  {
+   "name": "TEXAN MUTUAL LLC",
+   "buys_2y": 9,
+   "classes": [
+    "home"
+   ]
+  },
+  {
+   "name": "OCCM INC",
+   "buys_2y": 9,
+   "classes": [
+    "home",
+    "multifamily"
+   ]
+  },
+  {
+   "name": "SED PROPERTIES LLC",
+   "buys_2y": 8,
+   "classes": [
+    "home",
+    "multifamily"
+   ]
+  },
+  {
+   "name": "OASIS EXCURSION LLC",
+   "buys_2y": 8,
+   "classes": [
+    "home"
+   ]
+  }
+ ]
+}
